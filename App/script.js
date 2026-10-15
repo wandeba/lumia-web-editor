@@ -74,6 +74,42 @@
     }
   }
 
+  function escapeHighlightText(value) {
+    return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function updateHighlight() {
+    var layer = document.getElementById("syntaxLayer");
+    if (!layer) return;
+    var source = editor.value;
+    var tokenPattern = /<!--[\s\S]*?-->|\/\*[\s\S]*?\*\/|\/\/[^\n]*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|<\/?[A-Za-z][^>]*>|#[0-9a-fA-F]{3,8}\b|\b(?:const|let|var|function|return|if|else|for|while|new|true|false|null|undefined|class|this|document|window|console)\b|\b\d+(?:\.\d+)?\b/g;
+    var output = "";
+    var last = 0;
+    var match;
+    while ((match = tokenPattern.exec(source)) !== null) {
+      output += escapeHighlightText(source.slice(last, match.index));
+      var token = match[0];
+      var kind = "syntax-keyword";
+      if (token.indexOf("<!--") === 0 || token.indexOf("/*") === 0 || token.indexOf("//") === 0) {
+        kind = "syntax-comment";
+      } else if (token.charAt(0) === '"' || token.charAt(0) === "'") {
+        kind = "syntax-string";
+      } else if (token.charAt(0) === "<") {
+        kind = "syntax-tag";
+      } else if (token.charAt(0) === "#") {
+        kind = "syntax-color";
+      } else if (/^\d/.test(token)) {
+        kind = "syntax-number";
+      }
+      output += '<span class="' + kind + '">' + escapeHighlightText(token) + '</span>';
+      last = tokenPattern.lastIndex;
+    }
+    output += escapeHighlightText(source.slice(last));
+    layer.innerHTML = output || " ";
+    layer.scrollTop = editor.scrollTop;
+    layer.scrollLeft = editor.scrollLeft;
+  }
+
   function insertAtCursor(text, moveBack) {
     var start = editor.selectionStart;
     var end = editor.selectionEnd;
@@ -84,6 +120,7 @@
     editor.focus();
     editor.setSelectionRange(cursor, cursor);
     updateLineCount();
+    updateHighlight();
     saveCurrentFile();
     footerStatus.textContent = "Shortcut inserted · remember to save your project";
   }
@@ -128,6 +165,7 @@
     renderTabs();
     renderFileList();
     updateLineCount();
+    updateHighlight();
     status.textContent = "Editing " + entry.name;
     setView("editor");
   }
@@ -413,12 +451,18 @@
   });
   editor.addEventListener("input", function () {
     updateLineCount();
+    updateHighlight();
     saveCurrentFile();
     footerStatus.textContent = "Unsaved edits · tap Projects to save";
   });
   editor.addEventListener("scroll", function () {
     var gutter = document.getElementById("lineNumbers");
+    var layer = document.getElementById("syntaxLayer");
     if (gutter) gutter.scrollTop = editor.scrollTop;
+    if (layer) {
+      layer.scrollTop = editor.scrollTop;
+      layer.scrollLeft = editor.scrollLeft;
+    }
   });
   editor.addEventListener("keydown", handleEditorKeys);
   document.querySelector(".code-tools").addEventListener("click", function (event) {
@@ -447,5 +491,6 @@
   renderFileList();
   if (!editor.value) editor.value = getEntry(activeFile).code;
   updateLineCount();
+  updateHighlight();
   runPreview();
 }());
