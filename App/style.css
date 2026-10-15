@@ -230,3 +230,64 @@ select.project-name { appearance: auto; margin-bottom: 4px; }
   background: #fff7fb; color: #997b9d; font-size: 14px;
 }
 .file-manage-button.delete { color: #bd6b88; }
+
+
+/* Touch-friendly code tools and line number gutter */
+.code-tools {
+  display: flex;
+  gap: 6px;
+  padding: 8px 9px;
+  overflow-x: auto;
+  border-top: 1px solid #f3e2ec;
+  background: #fff6fb;
+  -webkit-overflow-scrolling: touch;
+}
+.code-tools button {
+  min-width: 38px;
+  min-height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid #f0d5e5;
+  border-radius: 10px;
+  background: #fff;
+  color: #9b4d82;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  font-weight: 700;
+}
+.code-tools button:active { background: #ffe3f1; }
+.editor-shell {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border-top: 1px solid #f3e2ec;
+  background: #fffafd;
+}
+.line-numbers {
+  flex: 0 0 38px;
+  width: 38px;
+  overflow: hidden;
+  padding: 14px 7px 14px 0;
+  border-right: 1px solid #f1dce9;
+  background: #fff5fa;
+  color: #bd9ab4;
+  text-align: right;
+  white-space: pre;
+  user-select: none;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+#codeInput {
+  flex: 1 1 auto;
+  width: 0;
+  min-width: 0;
+  border-top: 0;
+  padding-left: 11px;
+  overflow: auto;
+  white-space: pre;
+  overflow-wrap: normal;
+  -webkit-overflow-scrolling: touch;
+}
+@media (min-width: 760px) {
+  #codeInput { height: calc(100vh - 290px); }
+}
