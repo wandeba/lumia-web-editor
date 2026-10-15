@@ -291,3 +291,45 @@ select.project-name { appearance: auto; margin-bottom: 4px; }
 @media (min-width: 760px) {
   #codeInput { height: calc(100vh - 290px); }
 }
+
+
+/* Lightweight offline syntax colors, rendered beneath the editable text */
+.editor-shell { position: relative; }
+.line-numbers { position: relative; z-index: 2; }
+.syntax-layer {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 38px;
+  margin: 0;
+  padding: 14px 14px 14px 11px;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: #594663;
+  white-space: pre;
+  overflow-wrap: normal;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  pointer-events: none;
+}
+#codeInput {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  color: transparent;
+  caret-color: #594663;
+}
+#codeInput::selection {
+  color: transparent;
+  background: rgba(237,126,181,.32);
+}
+.syntax-tag { color: #b94f8d; font-weight: 700; }
+.syntax-string { color: #438b72; }
+.syntax-comment { color: #aa9aa9; font-style: italic; }
+.syntax-keyword { color: #8870d4; font-weight: 700; }
+.syntax-number { color: #c47c42; }
+.syntax-color { color: #d65f8e; font-weight: 700; }
