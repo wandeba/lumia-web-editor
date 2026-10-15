@@ -91,6 +91,8 @@
 
   function openDrawer() {
     updateProjectName();
+    document.getElementById("editorNav").classList.remove("active");
+    document.getElementById("previewNav").classList.remove("active");
     drawer.classList.add("open");
     drawer.setAttribute("aria-hidden", "false");
     shade.hidden = false;
