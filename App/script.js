@@ -65,6 +65,43 @@
   function updateLineCount() {
     var lines = editor.value.split("\n").length;
     lineCount.textContent = lines + (lines === 1 ? " line" : " lines");
+    var gutter = document.getElementById("lineNumbers");
+    if (gutter) {
+      var numbers = [];
+      for (var i = 1; i <= lines; i++) numbers.push(i);
+      gutter.textContent = numbers.join("\n");
+      gutter.scrollTop = editor.scrollTop;
+    }
+  }
+
+  function insertAtCursor(text, moveBack) {
+    var start = editor.selectionStart;
+    var end = editor.selectionEnd;
+    var before = editor.value.slice(0, start);
+    var after = editor.value.slice(end);
+    editor.value = before + text + after;
+    var cursor = start + text.length - (moveBack || 0);
+    editor.focus();
+    editor.setSelectionRange(cursor, cursor);
+    updateLineCount();
+    saveCurrentFile();
+    footerStatus.textContent = "Shortcut inserted · remember to save your project";
+  }
+
+  function handleEditorKeys(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      insertAtCursor("  ");
+      return;
+    }
+    if (event.key === "Enter") {
+      var start = editor.selectionStart;
+      var before = editor.value.slice(0, start);
+      var currentLine = before.slice(before.lastIndexOf("\n") + 1);
+      var indent = (currentLine.match(/^\s*/) || [""])[0];
+      event.preventDefault();
+      insertAtCursor("\n" + indent);
+    }
   }
 
   function renderTabs() {
@@ -376,7 +413,21 @@
   });
   editor.addEventListener("input", function () {
     updateLineCount();
+    saveCurrentFile();
     footerStatus.textContent = "Unsaved edits · tap Projects to save";
+  });
+  editor.addEventListener("scroll", function () {
+    var gutter = document.getElementById("lineNumbers");
+    if (gutter) gutter.scrollTop = editor.scrollTop;
+  });
+  editor.addEventListener("keydown", handleEditorKeys);
+  document.querySelector(".code-tools").addEventListener("click", function (event) {
+    var button = event.target.closest("[data-insert]");
+    if (!button) return;
+    var value = button.getAttribute("data-insert");
+    if (value === "{ }") insertAtCursor("{}", 1);
+    else if (value === "( )") insertAtCursor("()", 1);
+    else insertAtCursor(value);
   });
   document.getElementById("runButton").addEventListener("click", runPreview);
   document.getElementById("refreshButton").addEventListener("click", runPreview);
