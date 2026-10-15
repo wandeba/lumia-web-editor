@@ -28,8 +28,23 @@
         <button class="file-tab" data-file="css" role="tab" aria-selected="false">style.css</button>
         <button class="file-tab" data-file="js" role="tab" aria-selected="false">script.js</button>
       </div>
+      <div class="code-tools" aria-label="Code typing shortcuts">
+        <button type="button" data-insert="&lt;">&lt;</button>
+        <button type="button" data-insert="&gt;">&gt;</button>
+        <button type="button" data-insert="{ }">{ }</button>
+        <button type="button" data-insert="( )">( )</button>
+        <button type="button" data-insert="&quot;">&quot;</button>
+        <button type="button" data-insert="'">'</button>
+        <button type="button" data-insert="=">=</button>
+        <button type="button" data-insert=";">;</button>
+        <button type="button" data-insert="/">/</button>
+        <button type="button" data-insert="  ">⇥</button>
+      </div>
       <label class="visually-hidden" for="codeInput">Edit current file</label>
-      <textarea id="codeInput" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Code editor"></textarea>
+      <div class="editor-shell">
+        <div id="lineNumbers" class="line-numbers" aria-hidden="true">1</div>
+        <textarea id="codeInput" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Code editor"></textarea>
+      </div>
       <div class="editor-footer">
         <span id="fileLabel">index.html</span>
         <span id="lineCount">1 line</span>
