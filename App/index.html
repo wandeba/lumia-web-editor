@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#101820">
+  <meta name="theme-color" content="#fff7fb">
   <title>Lumia Web Editor</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,15 +12,15 @@
     <div class="brand-mark" aria-hidden="true">&lt;/&gt;</div>
     <div class="brand-copy">
       <h1>Lumia Web Editor</h1>
-      <p>HTML · CSS · JavaScript</p>
+      <p>Make something lovely ✿</p>
     </div>
     <button id="runButton" class="run-button" type="button">▶ Run</button>
   </header>
 
-  <main>
-    <section class="workspace" aria-label="Code editor">
+  <main id="mainArea" class="view-editor">
+    <section class="workspace" id="workspace" aria-label="Code editor">
       <div class="section-heading">
-        <span>PROJECT</span>
+        <span>✿ YOUR CODE</span>
         <span id="statusText">Ready</span>
       </div>
       <div class="file-tabs" role="tablist" aria-label="Files">
@@ -36,18 +36,55 @@
       </div>
     </section>
 
-    <section class="preview-panel" aria-label="Live preview">
+    <section class="preview-panel" id="previewPanel" aria-label="Live preview">
       <div class="section-heading">
-        <span>PREVIEW</span>
-        <button id="refreshButton" class="small-button" type="button">Refresh</button>
+        <span>♡ LIVE PREVIEW</span>
+        <button id="refreshButton" class="small-button" type="button">↻ Refresh</button>
       </div>
       <iframe id="previewFrame" title="Project preview" sandbox="allow-scripts"></iframe>
     </section>
   </main>
 
+  <div id="drawerShade" class="drawer-shade" hidden></div>
+  <aside id="projectDrawer" class="project-drawer" aria-label="Project drawer" aria-hidden="true">
+    <div class="drawer-heading">
+      <div>
+        <span class="eyebrow">YOUR LITTLE WORKSPACE</span>
+        <h2>My project ✿</h2>
+      </div>
+      <button id="closeDrawer" class="icon-button" type="button" aria-label="Close projects">×</button>
+    </div>
+    <label class="field-label" for="projectName">Project name</label>
+    <input id="projectName" class="project-name" type="text" value="My lovely website" maxlength="60">
+    <div class="project-card">
+      <div class="project-icon">⌘</div>
+      <div class="project-card-copy">
+        <strong id="projectCardName">My lovely website</strong>
+        <span>HTML · CSS · JavaScript</span>
+        <small id="savedLabel">Not saved on this device yet</small>
+      </div>
+    </div>
+    <button id="saveProject" class="drawer-action primary-action" type="button">♡ Save on this device</button>
+    <button id="downloadProject" class="drawer-action" type="button">↓ Export HTML file</button>
+    <button id="resetProject" class="drawer-action" type="button">↺ Restore starter example</button>
+    <p class="drawer-note">Your saved draft stays in this browser on this device. Export HTML to keep a separate copy of your page.</p>
+  </aside>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <button class="nav-item active" id="editorNav" type="button">
+      <span class="nav-icon">⌨</span><span>Editor</span>
+    </button>
+    <button class="nav-item" id="previewNav" type="button">
+      <span class="nav-icon">♡</span><span>Preview</span>
+    </button>
+    <button class="nav-item" id="projectsNav" type="button">
+      <span class="nav-icon">▤</span><span>Projects</span>
+    </button>
+  </nav>
+
   <footer>
     <span class="status-dot" aria-hidden="true"></span>
-    <span id="footerStatus">Local prototype · No files uploaded</span>
+    <span id="footerStatus">Your work stays on this device</span>
   </footer>
   <script src="script.js"></script>
 </body>
