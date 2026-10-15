@@ -23,7 +23,7 @@
         <span>✿ YOUR CODE</span>
         <span id="statusText">Ready</span>
       </div>
-      <div class="file-tabs" role="tablist" aria-label="Files">
+      <div id="fileTabs" class="file-tabs" role="tablist" aria-label="Project files">
         <button class="file-tab active" data-file="html" role="tab" aria-selected="true">index.html</button>
         <button class="file-tab" data-file="css" role="tab" aria-selected="false">style.css</button>
         <button class="file-tab" data-file="js" role="tab" aria-selected="false">script.js</button>
@@ -64,6 +64,23 @@
         <small id="savedLabel">Not saved on this device yet</small>
       </div>
     </div>
+    <section class="file-manager" aria-label="Project files">
+      <div class="file-manager-title">
+        <strong>Project files</strong>
+        <span id="fileTotal">3 files</span>
+      </div>
+      <label class="field-label" for="newFileName">New file name</label>
+      <input id="newFileName" class="project-name" type="text" placeholder="e.g. about.html" maxlength="50">
+      <label class="field-label file-type-label" for="newFileType">File type</label>
+      <select id="newFileType" class="project-name">
+        <option value="html">HTML page</option>
+        <option value="css">CSS stylesheet</option>
+        <option value="js">JavaScript file</option>
+      </select>
+      <button id="addFileButton" class="drawer-action primary-action" type="button">＋ Add file</button>
+      <div id="fileList" class="file-list" aria-live="polite"></div>
+      <p class="drawer-note">Extra CSS and JavaScript files are included in the preview. Extra HTML pages can be opened and edited here too.</p>
+    </section>
     <button id="saveProject" class="drawer-action primary-action" type="button">♡ Save on this device</button>
     <button id="downloadProject" class="drawer-action" type="button">↓ Export HTML file</button>
     <button id="resetProject" class="drawer-action" type="button">↺ Restore starter example</button>
