@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#101820">
+  <title>Lumia Web Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">&lt;/&gt;</div>
+    <div class="brand-copy">
+      <h1>Lumia Web Editor</h1>
+      <p>HTML · CSS · JavaScript</p>
+    </div>
+    <button id="runButton" class="run-button" type="button">▶ Run</button>
+  </header>
+
+  <main>
+    <section class="workspace" aria-label="Code editor">
+      <div class="section-heading">
+        <span>PROJECT</span>
+        <span id="statusText">Ready</span>
+      </div>
+      <div class="file-tabs" role="tablist" aria-label="Files">
+        <button class="file-tab active" data-file="html" role="tab" aria-selected="true">index.html</button>
+        <button class="file-tab" data-file="css" role="tab" aria-selected="false">style.css</button>
+        <button class="file-tab" data-file="js" role="tab" aria-selected="false">script.js</button>
+      </div>
+      <label class="visually-hidden" for="codeInput">Edit current file</label>
+      <textarea id="codeInput" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Code editor"></textarea>
+      <div class="editor-footer">
+        <span id="fileLabel">index.html</span>
+        <span id="lineCount">1 line</span>
+      </div>
+    </section>
+
+    <section class="preview-panel" aria-label="Live preview">
+      <div class="section-heading">
+        <span>PREVIEW</span>
+        <button id="refreshButton" class="small-button" type="button">Refresh</button>
+      </div>
+      <iframe id="previewFrame" title="Project preview" sandbox="allow-scripts"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <span class="status-dot" aria-hidden="true"></span>
+    <span id="footerStatus">Local prototype · No files uploaded</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
